@@ -122,9 +122,14 @@ a) ["banana", "maçã", "uva", "abacaxi", "manga", "laranja"]
 
 b) ["banana", "abacaxi", "manga"]
 
-c) ["banana", "abacaxi", "manga", "laranja"]
+X) ["banana", "abacaxi", "manga", "laranja"]
 
 d) ["banana", "maçã", "uva", "abacaxi", "manga"]
+
+Resposta: C
+
+Justificativa: O método splice() vai alterar o arrey lista de modo à substituir o iten de posição 1 ("maça") por "abacaxi" e o tien de posição 2 ("uva") por "manga". 
+Em "lista.splice(1, 2, "abacaxi", "manga");", o número 1 corresponde ao primeiro iten de substituição, ou seja, significa que o método splice vai começar removendo e substituindo o iten de posição 1. Já o numéro 2 representa o número de itens a serem excluídos e substituídos apartir da primeira posição que foi definida, entretanto, ele não inclui o último indice do intervalo e, por isso, os itens trocados são apenas os de posição 1 e 2. 
 ______
 **6) Abaixo há duas afirmações sobre herança em JavaScript. Indique a alternativa correta e justifique sua resposta**
 
@@ -134,11 +139,15 @@ II. Em JavaScript, a herança é implementada através da palavra-chave `extends
 
 a) As duas afirmações são verdadeiras, e a segunda justifica a primeira.
 
-b) As duas afirmações são verdadeiras, mas a segunda não justifica a primeira.
+X) As duas afirmações são verdadeiras, mas a segunda não justifica a primeira.
 
 c) A primeira afirmação é verdadeira, e a segunda é falsa.
 
 d) A primeira afirmação é falsa, e a segunda é verdadeira.
+
+Resposta: B
+
+Justificativa: As definições contidas em ambas as afirmações correpondem ao verdadeiro. Conforme à lógica de efeito de justificativa, a segunda afirmação não justifica a primeira, pois, apesar de ela cooresponder a forma de como definfir uma classe que será herdada de outra, não explica a causa para esse fenômeno.
 ______
 **7) Dado o seguinte código. Indique a alternativa correta e justifique sua resposta.**
 
@@ -174,13 +183,17 @@ III) O código não funciona corretamente, pois Funcionario não pode herdar de 
 
 Quais das seguintes afirmações são verdadeiras sobre o código acima?
 
-a) I e II são verdadeiras.
+X) I e II são verdadeiras.
 
 b) I, II e III são verdadeiras.
 
 c) Apenas II é verdadeira.
 
 d) Apenas I é verdadeira.
+
+Resposta: A
+
+Justificativa: A afirmativa I é verdadeira, pois uma classe herdeira consegue, de fato, acessar os atributos de sua classe pai. A afirmativa II também está correta, haja vista que o código chama, na classe Funcionario, corretamente o metódo da classe pai, usando "super". Já a afirmativa III, por sua vez, mostra-se incorreta, porque, como apresentado nas próprias afirmativas anteriores e na correta execução do código, a linguagem JavaScript suporta, sim, herença de classes. 
 
 ______
 
