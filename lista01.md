@@ -246,3 +246,40 @@ ______
 - Uma classe `Livro` que herda de `Produto` e modifica o método `calcularDesconto()`, aplicando um desconto de 20% no preço dos livros.
 
 Explique como funciona a herança nesse contexto e como você implementaria a modificação do método na classe `Livro`.
+
+```javascript
+class Produto{
+  constructor(nome, preco){
+    this.nome = nome; 
+    this.preco = preco;
+  }
+  calcularDesconto(){
+    let desconto = 0;
+    desconto = this.preco*10/100;
+    console.log(`O desconto do produto ${this.nome} é de R$${desconto},00.`);
+    let novoPreco = 0;
+    novoPreco = this.preco-desconto;
+    console.log(`O novo preço do produto ${this.nome} é R$${novoPreco},00.`);
+  }
+}
+class Livro extends Produto{
+  constructor(nome, preco){
+    super(nome,preco);
+  }
+  calcularDesconto(){
+    let desconto = 0;
+    desconto = this.preco*20/100;
+    console.log(`O desconto do livro ${this.nome} é de R$${desconto},00.`);
+    let novoPreco = 0;
+    novoPreco = this.preco-desconto;
+    console.log(`O novo preço do livro ${this.nome} é R$${novoPreco},00.`);
+  }
+}
+
+const produto1 = new Produto("Produto1", 100);
+produto1.preco = produto1.calcularDesconto();
+
+const livro1 = new Livro("Livro1", 400);
+livro1.preco = livro1.calcularDesconto();
+```
+Em relação ao funcionamento da herança, a classe Livro é herdada da classe Produto, ou seja, a classe Livro (classe filha) pode acessar os métodos e as propriedades diretamente da classe Produto (classe pai). A modificação do método na classe Livro foi feita alterando o valor do desconto para 20%.
