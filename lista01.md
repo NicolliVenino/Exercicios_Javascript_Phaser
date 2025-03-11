@@ -1,19 +1,3 @@
-# Instruções
-- Faça uma cópia deste arquivo .md para um repositório próprio
-- Resolva as 8 questões objetivas assinalando a alternativa correta e **justificando sua resposta.**
-- Resolva as 2 questões dissertativas escrevendo no próprio arquivo .md
-- Lembre-se de utilizar as estruturas de código como ``esta aqui com ` `` ou
-```javascript
-//esta aqui com ```
-let a = "olá"
-let b = 10
-print(a)
-```
-- Resolva as questões com uso do Visual Studio Code ou ambiente similar.
-- Teste seus códigos antes de trazer a resposta para cá.
-- Cuidado com o uso de ChatGPT (e similares), pois entregar algo só para ganhar nota não fará você aprender. Não seja dependente da máquina!
-- Ao final, publique seu arquivo lista_01.md com as respostas em seu repositório, e envie o link pela Adalove. 
-
 # Questões objetivas
 **1) Considerando a execução do código abaixo, indique a alternativa correta e justifique sua resposta.**
 ```javascript
@@ -22,13 +6,16 @@ var x = 5;
 console.log(y);
 let y = 10;
 ```
-a) A saída será undefined seguido de erro 
+X) A saída será undefined seguido de erro 
 
 b) A saída será 5 seguido de 10
 
 c) A saída será undefined seguido de undefined
 
 d) A saída será erro em ambas as linhas que utilizam console.log
+
+Resposta: A
+Justificativa: O undefined se dá pois a variável "var" foi declarada depois do console.log e o erro se dá porque a variável do tipo let não pode ser acessada antes de ser declarada.
 
 
 **2) O seguinte código JavaScript tem um erro que impede sua execução correta. Analise e indique a opção que melhor corrige o problema. Justifique sua resposta.**
@@ -43,13 +30,17 @@ function soma(a, b) {
 console.log(soma(2, 0));
 ```
 
-a) Substituir if (a || b === 0) por if (a === 0 || b === 0)
+X) Substituir if (a || b === 0) por if (a === 0 || b === 0)
 
 b) Substituir if (a || b === 0) por if (a === 0 && b === 0)
 
 c) Substituir if (a || b === 0) por if (a && b === 0)
 
 d) Remover completamente a verificação if (a || b === 0)
+
+Resposta: A
+Justificativa: A substituição descrita no iten "A" permite a execução correta do código de modo que, toda vez que um dos valores dado à função soma ("a" ou "b") for igual a 0, a função retornará "Erro: número invalido". Já se "a" e "b" forem diferentes de 0, a função retorna a soma de "a" e "b". 
+No código original, a função sempre retonaria "Erro: número invalido", mesmo que os valores de a e b fossem diferentes de 0, pois a condição do erro era a existência do valor "a", independente do seu valor (o que, portanto, era sempre verdadeiro), ou "b" ser igual à 0.
 
 ______
 **3) Ao executar esse código, qual será a saída no console? Indique a alternativa correta e justifique sua resposta.**
@@ -78,11 +69,14 @@ console.log(calcularPreco("eletrônico"));
 
 a) O código imprime 1000.
 
-b) O código imprime 200.
+X) O código imprime 200.
 
 c) O código imprime 50.
 
 d) O código gera um erro.
+
+Resposta: B
+Justificativa: Quando, em um laço do tipo "switch case", não for encontrado nenhum break, o código continua a ser exacutado para o próximo case, até que o break seja encontrado. O primeiro case do laço "switch case" da função calcularPreco não termina com um "break", ou seja, após o preço receber o valor 1000 será exacutado o case seguinte, onde o preço passa a ser, então, 200.
 
 ______
 **4) Ao executar esse código, qual será a saída no console? Indique a alternativa correta e justifique sua resposta.**
@@ -99,7 +93,13 @@ b) 6
 
 c) 18
 
-d) 24
+X) 24
+
+Resposta: D
+Justificativa: 
+Primeiro, o método map() cria um novo arrey "resultado", cujo os itens são a multiplicação de todos os itens do arrey "resultado" por 2. Assim, temos: resultado = [2,4,6,8,10]
+Após isso, o metódo filter() "filtra" os itens que atendem a condição de serem maiores do que 5. Assim temos: resultado = [6,8,10]
+Enfim, o método reduce() soma todos os itens do arrey, ou seja, 6+8+10. Por isso, console.log mostra 24.
 ______
 **5) Qual será o conteúdo do array lista após a execução do código? Indique a alternativa correta e justifique sua resposta.**
 
