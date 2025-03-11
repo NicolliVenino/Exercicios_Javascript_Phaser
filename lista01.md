@@ -222,6 +222,23 @@ function somaArray(numeros) {
 }
 console.log(somaArray([1, 2, 3, 4]));
 ```
+
+Resposta:
+
+```javascript
+function somaArray(numeros) {
+  // A variável soma é iniciada antes de ser usada no for, pois, assim, é possível usá-lá posteriormente sem erros
+  let soma = 0;
+  // .legth define o último iten do arrey como o limite do for, para que, assim, todos os itens do arrey sejam contemplados no laço
+  for (i = 0; i < numeros.length; i++) {
+      // O valor soma deve receber ele mesmo e mais o dobro do iten do arrey para, assim, armazenar a soma do dobro de todos os itens do arrey
+      soma += 2*numeros[i];
+  }
+  return soma;
+}
+console.log(somaArray([1, 2, 3, 4]));
+```
+
 ______
 10) Crie um exemplo prático no qual você tenha duas classes:
 
