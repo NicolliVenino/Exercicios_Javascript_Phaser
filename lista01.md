@@ -102,13 +102,7 @@ X) 24
 
 Resposta: D
 
-Justificativa: 
-
-Primeiro, o método map() cria um novo arrey "resultado", cujo os itens são a multiplicação de todos os itens do arrey "resultado" por 2. Assim, temos: resultado = [2,4,6,8,10]
-
-Após isso, o metódo filter() "filtra" os itens que atendem a condição de serem maiores do que 5. Assim temos: resultado = [6,8,10]
-
-Enfim, o método reduce() soma todos os itens do arrey, ou seja, 6+8+10. Por isso, console.log mostra 24.
+Justificativa: Primeiro, o método map() cria um novo arrey "resultado", cujo os itens são a multiplicação de todos os itens do arrey "resultado" por 2. Assim, temos: resultado = [2,4,6,8,10]. Após isso, o metódo filter() "filtra" os itens que atendem a condição de serem maiores do que 5. Assim temos: resultado = [6,8,10]. Enfim, o método reduce() soma todos os itens do arrey, ou seja, 6+8+10. Por isso, console.log mostra 24.
 ______
 **5) Qual será o conteúdo do array lista após a execução do código? Indique a alternativa correta e justifique sua resposta.**
 
@@ -193,7 +187,7 @@ d) Apenas I é verdadeira.
 
 Resposta: A
 
-Justificativa: A afirmativa I é verdadeira, pois uma classe herdeira consegue, de fato, acessar os atributos de sua classe pai. A afirmativa II também está correta, haja vista que o código chama, na classe Funcionario, corretamente o metódo da classe pai, usando "super". Já a afirmativa III, por sua vez, mostra-se incorreta, porque, como apresentado nas próprias afirmativas anteriores e na correta execução do código, a linguagem JavaScript suporta, sim, herença de classes. 
+Justificativa: A afirmativa I é verdadeira, pois uma classe herdeira consegue, de fato, acessar os atributos de sua classe pai. A afirmativa II também está correta, haja vista que o código chama, na classe Funcionario, corretamente o metódo da classe pai, usando "super". Já a afirmativa III, por sua vez, mostra-se incorreta, porque, como apresentado nas próprias afirmativas anteriores e na correta execução do código, a linguagem JavaScript suporta, sim, herença de classes.
 
 ______
 
@@ -204,12 +198,15 @@ ______
 
 a) A asserção é falsa e a razão é verdadeira.
 
-b) A asserção é verdadeira e a razão é falsa.
+X) A asserção é verdadeira e a razão é falsa.
 
 c) A asserção é verdadeira e a razão é verdadeira, mas a razão não explica a asserção.
 
 d) A asserção é verdadeira e a razão é verdadeira, e a razão explica a asserção.
 
+Resposta: B
+
+Justificativa: A afirmativa I descreve corretamente a definição de polimorfismo em POO. Entretanto, a razão, nem explica a asserção e nem configura-se como uma verdade, pois em JavaScript, o poliformismo não pode ser implementado usando sobrecarga de métodos, mas sim por sobreescrita de métodos.
 ______
 
 # Questões dissertativas
