@@ -41,7 +41,8 @@ d) Remover completamente a verificação if (a || b === 0)
 
 Resposta: A
 
-Justificativa: A substituição descrita no iten "A" permite a execução correta do código de modo que, toda vez que um dos valores dado à função soma ("a" ou "b") for igual a 0, a função retornará "Erro: número invalido". Já se "a" e "b" forem diferentes de 0, a função retorna a soma de "a" e "b". 
+Justificativa: 
+A substituição descrita no iten "A" permite a execução correta do código de modo que, toda vez que um dos valores dado à função soma ("a" ou "b") for igual a 0, a função retornará "Erro: número invalido". Já se "a" e "b" forem diferentes de 0, a função retorna a soma de "a" e "b". 
 
 No código original, a função sempre retonaria "Erro: número invalido", mesmo que os valores de a e b fossem diferentes de 0, pois a condição do erro era a existência do valor "a", independente do seu valor (o que, portanto, era sempre verdadeiro), ou "b" ser igual à 0.
 
@@ -102,6 +103,7 @@ X) 24
 Resposta: D
 
 Justificativa: 
+
 Primeiro, o método map() cria um novo arrey "resultado", cujo os itens são a multiplicação de todos os itens do arrey "resultado" por 2. Assim, temos: resultado = [2,4,6,8,10]
 
 Após isso, o metódo filter() "filtra" os itens que atendem a condição de serem maiores do que 5. Assim temos: resultado = [6,8,10]
