@@ -136,6 +136,8 @@ X) O código verifica se a idade pertence à faixa adulta. Se for, exibe "Você 
 C) O código verifica se a idade está entre 18 e 60 anos e, se for, imprime "Você é um adulto!". Se não estiver nesse intervalo, imprime "Você está na melhor idade!".
 
 D) O código verifica se a idade é menor de 18, entre 18 e 60 ou acima de 60, imprimindo uma mensagem específica para cada caso.
+
+Resposta: B
 ______
 
 **4)** Qual será o resultado impresso no console após a execução do seguinte código?
@@ -219,6 +221,8 @@ X) O método update() é chamado continuamente a cada quadro (frame) do jogo, se
 C) O método update() renderiza todos os sprites na tela e garante que a física do jogo seja processada corretamente.
 
 D) O método update() é chamado apenas uma vez após a criação da cena, sendo utilizado para configurar variáveis iniciais do jogo.
+
+Resposta: B
 ______
 
 **6)** Qual é o principal objetivo do módulo Matter.js Physics em Phaser.js?
