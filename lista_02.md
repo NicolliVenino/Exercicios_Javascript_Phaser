@@ -254,6 +254,25 @@ Pedidos entre R$50,00 e R$199,99 (inclusive) → "Frete com custo adicional!"
 Pedidos de R$200,00 ou mais → "Frete grátis!"
 ```
 Implemente um pseudocódigo que receba o valor total da compra e exiba a classificação correta do frete para o cliente.
+
+Resposta: 
+
+```javascript
+function verificaFrete(valorTotal){
+    if(valorTotal<50){
+        console.log('Frete não disponível!');
+    }
+    else if (valorTotal>=50 && valorTotal<=199.99){
+        console.log('Frete com custo adicional!')
+    }
+    else{
+        console.log('Frete grátis!')
+    }
+}
+
+var valorTotal = 10;
+verificaFrete(valorTotal);
+```
 ______
 
 **8)** Considere a implementação da classe base Veiculo em um sistema de modelagem de veículos. Sua tarefa é implementar, utilizando pseudocódigo, as classes derivadas Carro e Moto, que herdam da classe Veiculo, adicionando atributos específicos e métodos para calcular o consumo de combustível de um carro e de uma moto, respectivamente.
@@ -271,6 +290,53 @@ Método CalcularConsumo():
 ```
 Implementação genérica para cálculo de consumo, a ser sobrescrita pelas subclasses.
 Agora, implemente as classes Carro e Moto, garantindo que ambas herdem de Veiculo e possuam métodos específicos para calcular o consumo de combustível com base na quilometragem e eficiência do veículo.
+
+Resposta:
+```javascript
+class Veiculo{
+    constructor(modelo, ano){
+        this.modelo = modelo;
+        this.ano = ano;
+    }
+
+    calcularConsumo(){}
+}
+
+class Carro extends Veiculo {
+    constructor(modelo, ano, eficiencia, quilometragem) { 
+        super(modelo, ano);
+        this.eficiencia = eficiencia;
+        this.quilometragem = quilometragem;
+    }
+
+    calcularConsumo() {
+        const consumo = this.quilometragem / this.eficiencia;
+        console.log(`O carro ${this.modelo} consumiu ${consumo} litros.`);
+        return consumo;
+    }
+}
+
+class Moto extends Veiculo {
+    constructor(modelo, ano, eficiencia, quilometragem) { 
+        super(modelo, ano);
+        this.eficiencia = eficiencia;
+        this.quilometragem = quilometragem;
+    }
+
+    calcularConsumo() {
+        const consumo = this.quilometragem / this.eficiencia;
+        console.log(`A moto ${this.modelo} consumiu ${consumo} litros.`);
+        return consumo;
+    }
+}
+
+// Exemplo de utilização:
+const carro = new Carro("ModeloCarro1", 2020, 12, 240); 
+carro.calcularConsumo(); 
+
+const moto = new Moto("ModeloMoto1", 2021, 35, 140); 
+moto.calcularConsumo(); 
+```
 ______
 
 **9)** Você é um cientista da NASA e está ajudando no desenvolvimento de um sistema de pouso para sondas espaciais em Marte. Seu objetivo é calcular o tempo necessário para que a sonda reduza sua velocidade até um nível seguro para pouso, considerando uma velocidade inicial de entrada na atmosfera marciana e uma taxa de desaceleração constante causada pelo atrito atmosférico e retrofoguetes.
@@ -284,6 +350,37 @@ Considere a fórumla de atualização velocidade:
     velocidade = velocidadeInicial - desaceleracao * tempo
 ```
 Seu programa deve determinar quanto tempo será necessário para que a sonda atinja uma velocidade segura de pouso, sem ultrapassar os limites estabelecidos.
+
+Resposta:
+
+```javascript
+function calcularTempoDePouso(velocidadeInicial, desaceleracao, velocidade, tempoMaximo, desaceleracaoMinima) {
+    var tempoNecessario = (velocidadeInicial - velocidade) / desaceleracao;
+
+    if (desaceleracao < desaceleracaoMinima) {
+        console.log("A desaceleração não é suficiente.");
+        return;
+    }
+
+    if (tempoNecessario > tempoMaximo) {
+        console.log("O tempo necessário é maior que o tempo máximo permitido.");
+        return;
+    }
+    else{
+        console.log(`O tempo necessário para atingir velocidade segura é de ${tempoNecessario} segundos.`);
+        return tempoNecessario;
+    }
+}
+
+//Exemplo de uso:
+const velocidadeInicial = 2000;      
+const desaceleracao = 10;            
+const velocidade = 200;       
+const tempoMaximo = 200;             
+const desaceleracaoMinima = 5;     
+
+calcularTempoDePouso(velocidadeInicial, desaceleracao, velocidade, tempoMaximo, desaceleracaoMinima);
+```
 ______
 
 **10)** Em um sistema de análise financeira, as operações de investimento de uma empresa podem ser representadas por matrizes, onde cada linha representa um tipo de investimento e cada coluna representa um período de tempo.
