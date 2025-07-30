@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício do Alien</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style> body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; } </style>
+</head>
+
+<body>
+    <script>
+        // Define os valores imutáveis das dimensões da tela do jogo
+        const larguraJogo = 700;
+        const alturaJogo = 850;
+
+        // Define o tamanho da tela de jogo
+        const config = {
+            type: Phaser.AUTO,
+            width: larguraJogo,
+            height: alturaJogo,
+
+            // Adiciona física ao jogo
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: {y:300},
+                    debug: true
+                }
+            },
+
+            // Define as três funções principais que o Phaser usa: preload, create e update.
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            }
+        };
+
+        // Dá início ao jogo
+        const game = new Phaser.Game(config);
+
+        // Declara as variáveis que serão utilizadas futuramente
+        var alien;
+        var teclado;
+        var fogo;
+        var plataforma;
+        var moeda;
+        var pontuacao = 0;
+        var placar;
+        var bomba;
+        var estrela;
+        var corIndex = 0;
+        var piscar = false;
+        var estrelaApareceu = false;
+        var velocidadeAlien = 150;
+        // Cria uma lista que armazena os hexadecimais de cores
+        var cores = [0xff00fb, 0x00fffa, 0x00ff1d, 0xfaff00, 0xff0000]; 
+
+        // Carrega os arquivos do jogo
+        function preload() {
+            this.load.image('background', 'assets/bg.png');
+            this.load.image('player', 'assets/alienigena.png');
+            this.load.image('turbo_nave', 'assets/turbo.png');
+            this.load.image('plataforma_tijolo', 'assets/tijolos.png');
+            this.load.image('moeda', 'assets/moeda.png');
+            this.load.image('bomba', 'assets/bomba.png');
+            this.load.image('estrela', 'assets/estrela.png');
+        }
+
+        // Cria e define as propriedades dos arquivos do jogo
+        function create() {
+            // Adiciona o background exatamente no meio do tamanho da tela
+            this.add.image(larguraJogo/2, alturaJogo/2, 'background');
+            // Adiciona o sprite de turbo
+            fogo = this.add.sprite(0, 0, 'turbo_nave');
+            // Define que o turbo será, inicialmente, invisível
+            fogo.setVisible(false);
+            // Adiciona o sprite do alien e define que ele será afetado pelos comandos de física no jogo
+            alien = this.physics.add.sprite(larguraJogo/2, 0, 'player');
+            // Ativa os limites físicos das bordas da tela do jogo, impedindo que o personagem ultrapasse essa barreira
+            alien.setCollideWorldBounds(true);
+            // Acessa as teclas do teclado
+            teclado = this.input.keyboard.createCursorKeys();
+            // A plataforma é criada como imagem estática para não sofrer ação da gravidade
+            plataforma = this.physics.add.staticImage(larguraJogo/2, alturaJogo/3.5, 'plataforma_tijolo');
+            
+            // Ativa colisão entre o alien e a plataforma
+            this.physics.add.collider(alien, plataforma);
+
+            // A bomba é criada como imagem estática para não sofrer ação da gravidade
+            bomba = this.physics.add.staticImage(larguraJogo-100, alturaJogo/1.5, 'bomba').setScale(0.15);
+            // Define o tamanho da hitbox da bomba
+            bomba.body.setSize(bomba.width * 0.1, bomba.height * 0.1);
+            bomba.body.setOffset((bomba.width - bomba.body.width) / 2, (bomba.height - bomba.body.height) / 2);
+
+            // Ativa colisão entre a bomba e o alien
+            this.physics.add.collider(bomba, alien);
+
+            // Cria o sprite da moeda
+            moeda = this.physics.add.sprite(larguraJogo/4, 0, 'moeda');
+            // / Ativa os limites físicos das bordas da tela do jogo, impedindo que as moedas ultrapassem essa barreira
+            moeda.setCollideWorldBounds(true);
+            // Cria o efeito de "quicar" quando a moeda sofre uma colisão
+            moeda.setBounce(0.5);
+            // Ativa colisão entre a moeda e a plataforma
+            this.physics.add.collider(moeda, plataforma);
+            // Ativa colisão entre a bomba e a moeda
+            this.physics.add.collider(bomba, moeda);
+            // Cria o texto do placar, define o tamanho, a fonte e a cor
+            placar = this.add.text(50, 50, 'Moedas:' + pontuacao, {fontSize:'45px', fill:'#495613'});
+
+            // Se o alien e a moeda sofrerem uma colisão...
+            this.physics.add.overlap(alien, moeda, function(){
+                // ... a moeda fica invisível ...
+                moeda.setVisible(false);
+                // ... a posição de lançamento da nova moeda é definida por um sistema de "sorteio aleatório" 
+                var posicaoMoeda_Y = Phaser.Math.RND.between(50, 650); //sorteia número
+                moeda.setPosition(posicaoMoeda_Y, 100);
+
+                // ... a pontuação aumenta um ponto ...
+                pontuacao +=1;
+                // ... atualiza o placar ...
+                placar.setText('Moedas:' + pontuacao);
+
+                // ... e surge uma nova moeda
+                moeda.setVisible(true);
+            })
+
+            // Cria o sprite da estrela
+            estrela = this.physics.add.sprite(larguraJogo / 1.5, 0, 'estrela').setScale(0.15);
+            // Ativa os limites físicos das bordas da tela do jogo, impedindo que a estrela ultrapasse essa barreira
+            estrela.setCollideWorldBounds(true);
+            // Cria o efeito de "quicar" quando a estrela sofre uma colisão
+            estrela.setBounce(0.5);
+            // Desativa a hitbox da estrela
+            estrela.disableBody(true, true);
+            estrela.body.debugShowBody = false; 
+            // Ativa colisão entre a estrela e a plataforma
+            this.physics.add.collider(estrela, plataforma);
+            // Ativa colisão entre a estrela e a bomba
+            this.physics.add.collider(estrela, bomba);
+
+            // Se o alien e a estrela sofrerem uma colisão...
+            this.physics.add.overlap(alien, estrela, function () {
+                // ... se a estrela estiver visível ...
+                if (estrela.visible) {
+                    // ... desativa a hitbox da estrela ... 
+                    estrela.disableBody(true, true);
+                    estrela.body.debugShowBody = false;
+                    // ... e o efeito de piscar do alien torna-se verdade
+                    piscar = true; 
+                
+                }
+            });
+
+            // Se o alien e a bomba sofrerem uma colisão ... 
+            this.physics.add.overlap(alien, bomba, function(){
+
+                // ... o alien volta para o inicio
+                alien.x = larguraJogo/2;
+                alien.y = 0;
+                // ... o alien para de piscar ...
+                piscar = false; 
+                alien.clearTint(); 
+                // ... a pontuação reseta 
+                pontuacao = 0;
+                placar.setText('Moedas:' + pontuacao);
+                // ... guarda a informação de que a estrela já apareceu para evitar que outra estrela seja criada antes da pontuação sair de 5
+                estrelaApareceu = false;
+            })
+        }
+
+        function update() {
+
+            // Verifica se a tecla "para a esquerda" foi pressionada
+            if (teclado.left.isDown){
+                // Caso a tecla "para a esquerda" seja pressionada, o alien se move para a esquerda
+                alien.setVelocityX(-velocidadeAlien);
+            }
+            // Verifica se a tecla "para a direita" foi pressionada
+            else if (teclado.right.isDown){
+                // Caso a tecla "para a direita" seja pressionada, o alien se move para a direita
+                alien.setVelocityX(velocidadeAlien);
+            }
+            // Caso a tecla "para a esquerda" ou a tecla "para a direita" não seja pressionada, o alien não se move no eixo X
+            else{
+                alien.setVelocityX(0);
+            }
+            // Verifica se a tecla "para cima" foi pressionada
+            if (teclado.up.isDown){
+                // Caso a tecla "para cima" seja pressionada, o alien se move para cima e a função que torna o turbo vísivel é executada
+                alien.setVelocityY(-velocidadeAlien);
+                ativarTurbo();
+            }
+            // Caso a tecla "para cima" não seja pressionada, o alien se move no eixo Y apenas pela força da gravidade e a função que torna o turbo invisível é executada
+            else{
+                semTurbo();
+            }
+            // O turbo se move junto ao alien, embaixo da nave
+            fogo.setPosition(alien.x, alien.y + alien.height/2);
+
+            // Se a bomba estiver próxima de uma borda do jogo, ela direciona sua face para o sentido do movimento e fica pronta para avançar
+            if (bomba.x===larguraJogo-100){
+                bomba.setFlip(false, false);
+                bomba.ida = true;
+            }
+
+            // Se a bomba estiver na sua posição inicial e estiver pronta para a ida ela avança para a esquerda
+            if (bomba.x>100 && bomba.ida===true){
+                // Usa-se setPosition para mudar a posição da bomba e updateFromGameObject para atualizar essa posição pois ela foi criada como uma imagem estática
+                bomba.setPosition(bomba.x - 2, bomba.y);
+                bomba.body.updateFromGameObject();
+            }
+
+             // Se a bomba estiver próxima da outra borda do jogo, ela direciona sua face para o sentido do movimento e não fica pronta para a ida 
+            if (bomba.x===100){
+                bomba.setFlip(true, false);
+                bomba.ida = false;
+            }
+             // Se a bomba estiver na borda oposta da sua inicial e não estiver pronta para a ida ela avança para a direita
+            if (bomba.x<larguraJogo-100 && bomba.ida === false){
+                 // Usa-se setPosition para mudar a posição da bomba e updateFromGameObject para atualizar essa posição pois ela foi criada como uma imagem estática
+                bomba.setPosition(bomba.x + 2, bomba.y);
+                bomba.body.updateFromGameObject();
+            }
+            // Se a pontuação for igual a 5 e a estrela ainda não estiver aparecido...
+            if (pontuacao === 5 && !estrelaApareceu) {
+                // A posição que a estrela vai surgir é definida em um sistema de "soretio aleatório"
+                var posicaoEstrela_Y = Phaser.Math.RND.between(100, 500);
+                estrela.enableBody(true, posicaoEstrela_Y, 100, true, true);
+                estrelaApareceu = true;
+                estrela.body.debugShowBody = true;
+            }
+            // Efeito de piscar no alien quando ele pega a estrela
+            if (piscar) {
+                // Define a cor do alien como uma cor da lista de hexadecimais
+                alien.setTint(cores[corIndex]);
+                // Aumenta um valor de corIndex para conseguir acessar todos os hexadecimais da lista cores e criar o efeito de piscar
+                corIndex = (corIndex + 1) % cores.length;
+                // Aumenta a velocidade do alien
+                velocidadeAlien = 500;
+            }
+        }
+        // Deixa o turbo visível
+        function ativarTurbo(){
+            fogo.setVisible(true);
+        }
+
+        // Deixa o turbo invisível
+        function semTurbo(){
+            fogo.setVisible(false);
+        }
+    </script>
+</body>
+</html>
